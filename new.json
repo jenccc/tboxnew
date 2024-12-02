@@ -112,6 +112,20 @@
 		"keepPlayFileKeywords": "",
 		"selectedPlayer": "0"
 	},{
+		"key": "zhuifan",
+		"name": "🚗追饭┃直链",
+		"type": 5,
+		"searchable": 1,
+		"filterClass": "",
+		"firstClass": "",
+		"filterPlay": "",
+		"firstPlay": "SVIP4K专线2160P",
+		"ext": "https://ghp.ci/raw.githubusercontent.com/jenccc/tboxnew/refs/heads/main/js/zhuifan.js",
+		"flagable": 0,
+		"filterPlayFileKeywords": "",
+		"keepPlayFileKeywords": "",
+        "selectedPlayer":"0"
+	},{
 		"key": "xiaopingguo",
 		"name": "小苹果(1.0.6版)",
 		"type": 5,
