@@ -1,8 +1,5 @@
-//编写代码时，使用变量名称ucCookie、quarkCookie，编写完成后务必屏蔽掉，否则会报错（app会自动调用设置中的cookie）。
-//const ucCookie='在设置中登录uc网盘';
-//const quarkCookie='在设置中登录夸克网盘';
-//代码中未分析阿里云盘，如有能力请自行完善
-//在app的下方弹出提示文字
+
+const webSite='https://wogg.xxooo.cf';
 
 async function toast(msg, seconds = 2) {
     await sendMessage('toast', JSON.stringify({ msg: msg, seconds: seconds }));
@@ -421,7 +418,7 @@ async function toast(msg, seconds = 2) {
        }
        if (tBoxFid) {
          vodData.to_pdir_fid = tBoxFid;
-         await toast("正在获取影片文件信息", 2);
+         await toast('正在清空tBox文件夹内文件...',2);
          if (isQuark) {
            tBoxFileUrl = `https://drive-pc.quark.cn/1/clouddrive/file/sort?pr=ucpro&fr=pc&uc_param_str=&pdir_fid=${tBoxFid}&_page=1&_size=50&_fetch_total=1&_fetch_sub_dirs=0&_sort=file_type:asc,updated_at:desc`;
          } else {
@@ -453,6 +450,7 @@ async function toast(msg, seconds = 2) {
          }
        } else {
          // Step 3: Create tBox folder if not found
+         //await toast('首次运行,自动创建tBox文件夹...',2);
          const createParams = JSON.stringify({
            pdir_fid: "0",
            file_name: "tBox",
@@ -560,9 +558,6 @@ async function toast(msg, seconds = 2) {
          let retryCountForPlay = 0;
          let mySetCookie = null;
 
-
-
-
  const fetchPlayResponse = async (url, params, headers) => {
   return await 访问网页(url, 1, params, cookie, headers, 15000, (setCookie) => {
     mySetCookie = setCookie;
@@ -657,12 +652,6 @@ if (isQuark) {
   }
 }
 
-
-
-
-
-
-
          if (!videoLinks) {
            retryCount++;
            if (retryCount < 5) {
@@ -715,6 +704,28 @@ if (isQuark) {
        console.log(JSON.stringify(result));
        return JSON.stringify(result);
      } catch (error) {
+
+
+    let errorMessage;
+    if (Array.isArray(error)) {
+        errorMessage = error.map(err => {
+            if (typeof err === 'object' && err !== null) {
+                return err.message || JSON.stringify(err, null, 2);
+            } else if (typeof err === 'string') {
+                return err;
+            } else {
+                return String(err);
+            }
+        }).join('\n');
+    } else if (typeof error === 'object' && error !== null) {
+        errorMessage = error.message || JSON.stringify(error, null, 2);
+    } else if (typeof error === 'string') {
+        errorMessage = error;
+    } else {
+        errorMessage = String(error);
+    }
+
+         await toast(`获取影片链接失败: ${errorMessage}`,5);
        //console.error(error);
        const result = {
          parse: 1,
@@ -885,7 +896,7 @@ if (isQuark) {
    
    async function homeContent() {
      try {
-       const url = `https://wogg.xxooo.cf`;
+       const url = webSite;
        const html2 = await 访问网页(url);
        const html = 文本_取中间(html2, "最新影片</h2>", "</html>");
        // 使用正则表达式匹配所有的电影项
@@ -958,9 +969,9 @@ if (isQuark) {
              "name": "地区",
              "value": [
                { "n": "全部", "v": "" },
-               { "n": "大陆", "v": "大陆" },
-               { "n": "香港", "v": "香港" },
-               { "n": "台湾", "v": "台湾" },
+               { "n": "大陆", "v": "中国大陆" },
+               { "n": "香港", "v": "中国香港" },
+               { "n": "台湾", "v": "中国台湾" },
                { "n": "美国", "v": "美国" },
                { "n": "韩国", "v": "韩国" },
                { "n": "英国", "v": "英国" },
@@ -991,6 +1002,39 @@ if (isQuark) {
                { "n": "2012", "v": "2012" },
                { "n": "2011", "v": "2011" },
                { "n": "2010", "v": "2010" }
+             ]
+           },
+           {
+             "key": "letter",
+             "name": "字母",
+             "value": [
+               { "n": "全部", "v": "" },
+               { "n": "A", "v": "A" },
+               { "n": "B", "v": "B" },
+               { "n": "C", "v": "C" },
+               { "n": "D", "v": "D" },
+               { "n": "E", "v": "E" },
+               { "n": "F", "v": "F" },
+               { "n": "G", "v": "G" },
+               { "n": "H", "v": "H" },
+               { "n": "I", "v": "I" },
+               { "n": "J", "v": "J" },
+               { "n": "K", "v": "K" },
+               { "n": "L", "v": "L" },
+               { "n": "M", "v": "M" },
+               { "n": "N", "v": "N" },
+               { "n": "O", "v": "O" },
+               { "n": "P", "v": "P" },
+               { "n": "Q", "v": "Q" },
+               { "n": "R", "v": "R" },
+               { "n": "S", "v": "S" },
+               { "n": "T", "v": "T" },
+               { "n": "U", "v": "U" },
+               { "n": "V", "v": "V" },
+               { "n": "W", "v": "W" },
+               { "n": "X", "v": "X" },
+               { "n": "Y", "v": "Y" },
+               { "n": "Z", "v": "Z" }
              ]
            },
            {
@@ -1033,9 +1077,9 @@ if (isQuark) {
              "name": "地区",
              "value": [
                { "n": "全部", "v": "" },
-               { "n": "大陆", "v": "大陆" },
-               { "n": "香港", "v": "香港" },
-               { "n": "台湾", "v": "台湾" },
+               { "n": "大陆", "v": "中国大陆" },
+               { "n": "香港", "v": "中国香港" },
+               { "n": "台湾", "v": "中国台湾" },
                { "n": "美国", "v": "美国" },
                { "n": "韩国", "v": "韩国" },
                { "n": "英国", "v": "英国" },
@@ -1066,6 +1110,39 @@ if (isQuark) {
                { "n": "2012", "v": "2012" },
                { "n": "2011", "v": "2011" },
                { "n": "2010", "v": "2010" }
+             ]
+           },
+           {
+             "key": "letter",
+             "name": "字母",
+             "value": [
+               { "n": "全部", "v": "" },
+               { "n": "A", "v": "A" },
+               { "n": "B", "v": "B" },
+               { "n": "C", "v": "C" },
+               { "n": "D", "v": "D" },
+               { "n": "E", "v": "E" },
+               { "n": "F", "v": "F" },
+               { "n": "G", "v": "G" },
+               { "n": "H", "v": "H" },
+               { "n": "I", "v": "I" },
+               { "n": "J", "v": "J" },
+               { "n": "K", "v": "K" },
+               { "n": "L", "v": "L" },
+               { "n": "M", "v": "M" },
+               { "n": "N", "v": "N" },
+               { "n": "O", "v": "O" },
+               { "n": "P", "v": "P" },
+               { "n": "Q", "v": "Q" },
+               { "n": "R", "v": "R" },
+               { "n": "S", "v": "S" },
+               { "n": "T", "v": "T" },
+               { "n": "U", "v": "U" },
+               { "n": "V", "v": "V" },
+               { "n": "W", "v": "W" },
+               { "n": "X", "v": "X" },
+               { "n": "Y", "v": "Y" },
+               { "n": "Z", "v": "Z" }
              ]
            },
            {
@@ -1108,7 +1185,7 @@ if (isQuark) {
              "name": "地区",
              "value": [
                { "n": "全部", "v": "" },
-               { "n": "大陆", "v": "大陆" },
+               { "n": "大陆", "v": "中国大陆" },
                { "n": "美国", "v": "美国" },
                { "n": "韩国", "v": "韩国" },
                { "n": "英国", "v": "英国" },
@@ -1139,6 +1216,39 @@ if (isQuark) {
              ]
            },
            {
+             "key": "letter",
+             "name": "字母",
+             "value": [
+               { "n": "全部", "v": "" },
+               { "n": "A", "v": "A" },
+               { "n": "B", "v": "B" },
+               { "n": "C", "v": "C" },
+               { "n": "D", "v": "D" },
+               { "n": "E", "v": "E" },
+               { "n": "F", "v": "F" },
+               { "n": "G", "v": "G" },
+               { "n": "H", "v": "H" },
+               { "n": "I", "v": "I" },
+               { "n": "J", "v": "J" },
+               { "n": "K", "v": "K" },
+               { "n": "L", "v": "L" },
+               { "n": "M", "v": "M" },
+               { "n": "N", "v": "N" },
+               { "n": "O", "v": "O" },
+               { "n": "P", "v": "P" },
+               { "n": "Q", "v": "Q" },
+               { "n": "R", "v": "R" },
+               { "n": "S", "v": "S" },
+               { "n": "T", "v": "T" },
+               { "n": "U", "v": "U" },
+               { "n": "V", "v": "V" },
+               { "n": "W", "v": "W" },
+               { "n": "X", "v": "X" },
+               { "n": "Y", "v": "Y" },
+               { "n": "Z", "v": "Z" }
+             ]
+           },
+           {
              "key": "by",
              "name": "排序",
              "value": [
@@ -1154,9 +1264,9 @@ if (isQuark) {
              "name": "地区",
              "value": [
                { "n": "全部", "v": "" },
-               { "n": "大陆", "v": "大陆" },
-               { "n": "香港", "v": "香港" },
-               { "n": "台湾", "v": "台湾" },
+               { "n": "大陆", "v": "中国大陆" },
+               { "n": "香港", "v": "中国香港" },
+               { "n": "台湾", "v": "中国台湾" },
                { "n": "美国", "v": "美国" },
                { "n": "韩国", "v": "韩国" },
                { "n": "日本", "v": "日本" },
@@ -1187,6 +1297,39 @@ if (isQuark) {
              ]
            },
            {
+             "key": "letter",
+             "name": "字母",
+             "value": [
+               { "n": "全部", "v": "" },
+               { "n": "A", "v": "A" },
+               { "n": "B", "v": "B" },
+               { "n": "C", "v": "C" },
+               { "n": "D", "v": "D" },
+               { "n": "E", "v": "E" },
+               { "n": "F", "v": "F" },
+               { "n": "G", "v": "G" },
+               { "n": "H", "v": "H" },
+               { "n": "I", "v": "I" },
+               { "n": "J", "v": "J" },
+               { "n": "K", "v": "K" },
+               { "n": "L", "v": "L" },
+               { "n": "M", "v": "M" },
+               { "n": "N", "v": "N" },
+               { "n": "O", "v": "O" },
+               { "n": "P", "v": "P" },
+               { "n": "Q", "v": "Q" },
+               { "n": "R", "v": "R" },
+               { "n": "S", "v": "S" },
+               { "n": "T", "v": "T" },
+               { "n": "U", "v": "U" },
+               { "n": "V", "v": "V" },
+               { "n": "W", "v": "W" },
+               { "n": "X", "v": "X" },
+               { "n": "Y", "v": "Y" },
+               { "n": "Z", "v": "Z" }
+             ]
+           },
+           {
              "key": "by",
              "name": "排序",
              "value": [
@@ -1197,14 +1340,39 @@ if (isQuark) {
            }
          ],
          "44": [
-           {
+            {
+                "key": "cateId",
+                "name": "剧情",
+                "value": [
+                  { "n": "全部", "v": "" },
+                  { "n": "爱情", "v": "爱情" },
+                  { "n": "恐怖", "v": "恐怖" },
+                  { "n": "动作", "v": "动作" },
+                  { "n": "科幻", "v": "科幻" },
+                  { "n": "剧情", "v": "剧情" },
+                  { "n": "战争", "v": "战争" },
+                  { "n": "警匪", "v": "警匪" },
+                  { "n": "犯罪", "v": "犯罪" },
+                  { "n": "古装", "v": "古装" },
+                  { "n": "奇幻", "v": "奇幻" },
+                  { "n": "武侠", "v": "武侠" },
+                  { "n": "冒险", "v": "冒险" },
+                  { "n": "枪战", "v": "枪战" },
+                  { "n": "悬疑", "v": "悬疑" },
+                  { "n": "惊悚", "v": "惊悚" },
+                  { "n": "经典", "v": "经典" },
+                  { "n": "青春", "v": "青春" },
+                  { "n": "文艺", "v": "文艺" },
+                  { "n": "历史", "v": "历史" }
+                ]
+              },{
              "key": "area",
              "name": "地区",
              "value": [
                { "n": "全部", "v": "" },
-               { "n": "大陆", "v": "大陆" },
-               { "n": "香港", "v": "香港" },
-               { "n": "台湾", "v": "台湾" },
+               { "n": "大陆", "v": "中国大陆" },
+               { "n": "香港", "v": "中国香港" },
+               { "n": "台湾", "v": "中国台湾" },
                { "n": "美国", "v": "美国" },
                { "n": "韩国", "v": "韩国" },
                { "n": "日本", "v": "日本" },
@@ -1234,6 +1402,39 @@ if (isQuark) {
              ]
            },
            {
+             "key": "letter",
+             "name": "字母",
+             "value": [
+               { "n": "全部", "v": "" },
+               { "n": "A", "v": "A" },
+               { "n": "B", "v": "B" },
+               { "n": "C", "v": "C" },
+               { "n": "D", "v": "D" },
+               { "n": "E", "v": "E" },
+               { "n": "F", "v": "F" },
+               { "n": "G", "v": "G" },
+               { "n": "H", "v": "H" },
+               { "n": "I", "v": "I" },
+               { "n": "J", "v": "J" },
+               { "n": "K", "v": "K" },
+               { "n": "L", "v": "L" },
+               { "n": "M", "v": "M" },
+               { "n": "N", "v": "N" },
+               { "n": "O", "v": "O" },
+               { "n": "P", "v": "P" },
+               { "n": "Q", "v": "Q" },
+               { "n": "R", "v": "R" },
+               { "n": "S", "v": "S" },
+               { "n": "T", "v": "T" },
+               { "n": "U", "v": "U" },
+               { "n": "V", "v": "V" },
+               { "n": "W", "v": "W" },
+               { "n": "X", "v": "X" },
+               { "n": "Y", "v": "Y" },
+               { "n": "Z", "v": "Z" }
+             ]
+           },
+           {
              "key": "by",
              "name": "排序",
              "value": [
@@ -1244,7 +1445,30 @@ if (isQuark) {
            }
          ],
          "6": [
-           {
+            {
+                "key": "cateId",
+                "name": "剧情",
+                "value": [
+                  { "n": "全部", "v": "" },
+                  { "n": "男频", "v": "男频" },
+                  { "n": "女频", "v": "女频" },
+                  { "n": "都市", "v": "都市" },
+                  { "n": "甜宠", "v": "甜宠" },
+                  { "n": "年代", "v": "年代" },
+                  { "n": "穿越", "v": "穿越" },
+                  { "n": "古装", "v": "古装" },
+                  { "n": "亲情", "v": "亲情" },
+                  { "n": "奇幻", "v": "奇幻" },
+                  { "n": "萌宝", "v": "萌宝" },
+                  { "n": "重生", "v": "重生" },
+                  { "n": "冒险", "v": "冒险" },
+                  { "n": "逆袭", "v": "逆袭" },
+                  { "n": "虐恋", "v": "虐恋" },
+                  { "n": "鉴宝", "v": "鉴宝" },
+                  { "n": "复仇", "v": "复仇" },
+                  { "n": "修仙", "v": "修仙" }
+                ]
+              },{
              "key": "year",
              "name": "年份",
              "value": [
@@ -1253,17 +1477,40 @@ if (isQuark) {
                { "n": "2023", "v": "2023" },
                { "n": "2022", "v": "2022" },
                { "n": "2021", "v": "2021" },
-               { "n": "2020", "v": "2020" },
-               { "n": "2019", "v": "2019" },
-               { "n": "2018", "v": "2018" },
-               { "n": "2017", "v": "2017" },
-               { "n": "2016", "v": "2016" },
-               { "n": "2015", "v": "2015" },
-               { "n": "2014", "v": "2014" },
-               { "n": "2013", "v": "2013" },
-               { "n": "2012", "v": "2012" },
-               { "n": "2011", "v": "2011" },
-               { "n": "2010", "v": "2010" }
+               { "n": "2020", "v": "2020" }
+             ]
+           },
+           {
+             "key": "letter",
+             "name": "字母",
+             "value": [
+               { "n": "全部", "v": "" },
+               { "n": "A", "v": "A" },
+               { "n": "B", "v": "B" },
+               { "n": "C", "v": "C" },
+               { "n": "D", "v": "D" },
+               { "n": "E", "v": "E" },
+               { "n": "F", "v": "F" },
+               { "n": "G", "v": "G" },
+               { "n": "H", "v": "H" },
+               { "n": "I", "v": "I" },
+               { "n": "J", "v": "J" },
+               { "n": "K", "v": "K" },
+               { "n": "L", "v": "L" },
+               { "n": "M", "v": "M" },
+               { "n": "N", "v": "N" },
+               { "n": "O", "v": "O" },
+               { "n": "P", "v": "P" },
+               { "n": "Q", "v": "Q" },
+               { "n": "R", "v": "R" },
+               { "n": "S", "v": "S" },
+               { "n": "T", "v": "T" },
+               { "n": "U", "v": "U" },
+               { "n": "V", "v": "V" },
+               { "n": "W", "v": "W" },
+               { "n": "X", "v": "X" },
+               { "n": "Y", "v": "Y" },
+               { "n": "Z", "v": "Z" }
              ]
            },
            {
@@ -1315,7 +1562,7 @@ if (isQuark) {
    async function searchContent(keyword) {
        try {
            const encodedKeyword = encodeURIComponent(keyword);
-           const url = `https://wogg.xxooo.cf/vodsearch/-------------.html?wd=${encodedKeyword}`;
+           const url = `${webSite}/vodsearch/-------------.html?wd=${encodedKeyword}`;
            const html = await 访问网页(url);
            const items = 文本_取中间_批量(html,'<div class="module-search-item">','<div class="video-info-footer">');
            const list = items.map((item) => {
@@ -1353,9 +1600,6 @@ if (isQuark) {
    //    console.log(data);
    //});
    
-   async function test() {
-       return "hello world";
-   }
    //homeContent()
    //  .then(data => console.log(data))
    //  .catch(error => console.error('Error:', error));
@@ -1365,7 +1609,7 @@ if (isQuark) {
      try {
        // 解析 extend 参数
        let extendObj = extend ? JSON.parse(extend) : null;
-       let url = `https://wogg.xxooo.cf/vodshow/${tid}-{area}-{by}-{cateId}-----${pg}---{year}.html`;
+       let url = `${webSite}/vodshow/${tid}-{area}-{by}-{cateId}--{letter}---${pg}---{year}.html`;
        // 替换 URL 中的占位符
        if (extendObj) {
          for (const [key, value] of Object.entries(extendObj)) {
@@ -1418,7 +1662,7 @@ if (isQuark) {
    
    //获取影视详情信息
    async function detailContent(ids) {
-     const url = `https://wogg.xxooo.cf${ids}`;
+     const url = `${webSite}${ids}`;
      try {
        //console.log(url);
        await toast('正在加载玩偶影片信息',2);
@@ -1451,15 +1695,14 @@ if (isQuark) {
        let vod_play_url = [];
        // 记录云盘名称的使用次数
        const cloudNameCount = {};
-       await toast('正在加载网盘剧集信息',2);
+       //await toast('正在加载网盘剧集信息',5);
    for (let i = 0; i < cloudLinks.length; i++) {
      const link = cloudLinks[i];
      if (link.includes('uc.cn') || link.includes('quark.cn')) {
+      let baseCloudName = link.includes('uc.cn') ? 'UC网盘' : '夸克网盘'; // 对应 vod_play_from
+       await toast(`正在获取第 ${i + 1} 个${baseCloudName}剧集信息`, 2); // 2 秒的持续时间
        const result = await fetchVideoFiles(link); // 所有播放链接对应 vod_play_url
-       
        if (result) { // 检查 result 是否为空
-         const baseCloudName = link.includes('uc.cn') ? 'UC网盘' : '夸克网盘'; // 对应 vod_play_from
-   
          // 检查云盘名称是否已经使用过
          if (cloudNameCount[baseCloudName] === undefined) {
            cloudNameCount[baseCloudName] = 1;
