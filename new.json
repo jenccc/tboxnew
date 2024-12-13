@@ -748,19 +748,6 @@
 		"filterPlayFileKeywords": "",
 		"keepPlayFileKeywords": ""
 	},{
-		"key": "yunpan",
-		"name": "夸克云盘(仅搜索)",
-		"type": 5,
-		"searchable": 1,
-		"filterClass": "",
-		"firstClass": "",
-		"filterPlay": "",
-		"firstPlay": "",
-		"ext": "https://raw.githubusercontent.com/jenccc/tboxnew/refs/heads/main/js/yunpan.js",
-		"flagable": 0,
-		"filterPlayFileKeywords": "",
-		"keepPlayFileKeywords": ""
-	},{
 	"key": "6yueting",
 	"name": "6️⃣六月┃听书",
 	"type": 5,
@@ -817,6 +804,19 @@
 	"keepPlayFileKeywords": "",
 	"selectedPlayer": "2"
 },{
+		"key": "yunpan",
+		"name": "夸克云盘(仅搜索)",
+		"type": 5,
+		"searchable": 1,
+		"filterClass": "",
+		"firstClass": "",
+		"filterPlay": "",
+		"firstPlay": "",
+		"ext": "https://raw.githubusercontent.com/jenccc/tboxnew/refs/heads/main/js/yunpan.js",
+		"flagable": 0,
+		"filterPlayFileKeywords": "",
+		"keepPlayFileKeywords": ""
+	},{
 		"key": "pansou",
 		"name": "夸克盘搜(仅搜索)",
 		"type": 5,
