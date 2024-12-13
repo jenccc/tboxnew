@@ -775,6 +775,20 @@
 	"keepPlayFileKeywords": "",
 	"selectedPlayer": "2"
 },{
+		"key": "kuwotingshu",
+		"name": "🎧酷我┃听书",
+		"type": 5,
+		"searchable": 1,
+		"filterClass": "",
+		"firstClass": "",
+		"filterPlay": "",
+		"firstPlay": "",
+		"ext": "https://ghp.ci/raw.githubusercontent.com/jenccc/tboxnew/refs/heads/main/js/kuwotingshu.js",
+		"flagable": 0,
+		"filterPlayFileKeywords": "",
+		"keepPlayFileKeywords": "",
+		"selectedPlayer": "2"
+	},{
 	"key": "haiyang",
 	"name": "🌊海洋┃听书",
 	"type": 5,
